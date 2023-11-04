@@ -1,25 +1,20 @@
 ---
+	const { SiteName, IconURL } = Astro.props;
 	import ThemeSwitcher from "./base/ThemeSwitcher.astro"
 	import MultiDisk from "./MultiDisk.astro"
-	import "../assets/header.css"
-	const { SiteName, IconURL } = Astro.props;
-	
-	// icons
-	import Login from "./fa-icons/login.astro"
-    import Menu from "./fa-icons/bars.astro"
-	import ListItem from "./fa-icons/list-item.astro";
+	import "../assets/header.scss"
+	import { Icon } from "astro-icon";
 ---
 
 <header>
-	<span class="buttons left">
+	<span class="left">
 		<span onclick="SideBar.Open()" title="Open Sidebar.">
-			<Menu color="#f8f8ff"/>
+			<Icon name="heroicons:bars-3" />
+			<!-- <Menu /> -->
 		</span>
-		<!--MultiDiskAreaStart-->
-			<span onclick="MultiDisk.Expand()" class="MultiDiskExpander" title="Open multi disk controller">
-				<ListItem color="#f8f8ff"/>
-			</span>
-		<!--MultiDiskAreaEnd-->
+		<span onclick="MultiDisk.Expand()" title="Open multi disk controller">
+			<span class="ExpandIcon" data-ControllerHidden="true"><Icon name="heroicons:chevron-down" /></span>
+		</span>
 	</span>
 
     <div class="Header">
@@ -28,27 +23,24 @@
 			<img src={ IconURL } alt="">
 			<span set:html={ SiteName }></span>
     	</a>
-
-		<span data-desc="space-between"></span>
 		
-		<a class="CurrentDriveName NoUnderline" href="javascript:MultiDisk.Expand();">
-			<!--MultiDiskAreaStart-->
-				<span id="DriveName">(CurrentDriveName)</span>
-				<span class="ExpandIcon"><ListItem color="#f8f8ff" /></span>
-			<!--MultiDiskAreaEnd-->
-		</a>
+		<span class="CurrentDriveName" onclick="MultiDisk.Expand();">
+			<span id="DriveName">(CurrentDriveName)</span>
+			<span class="ExpandIcon" data-ControllerHidden="true"><Icon name="heroicons:chevron-down" /></span>
+		</span>
 
     </div>
 
-	<span class="buttons right">
+	<span class="right">
 		<span onclick="ThemeSwitcher.Switch();" title="Switch theme, light or dark">
 			<ThemeSwitcher />
 		</span>
 		<span onclick="location.assign('/?login=admin')" title="Login">
-			<Login color="#f8f8ff"/>
+			<Icon name="heroicons:arrow-right-on-rectangle" />
 		</span>
 	</span>
 </header>
+
 <!--MultiDiskAreaStart-->
 <MultiDisk />
 <!--MultiDiskAreaEnd-->

@@ -4,8 +4,13 @@
     "jsx": "preserve",
     "allowJs": true,
     "sourceMap": false,
-    "baseUrl": "src",
-    "rootDir": "src"
+    "rootDir": "src",
+    "baseUrl": ".",
+    "paths": {
+      "@components/*": ["src/components/*"],
+      "@layouts/*": ["src/layout/*"],
+      "@assets/*": ["src/assets/*"]
+    }
   },
   "include": [
     "src",

@@ -18,11 +18,9 @@ MultiDisk.Init = function () {
         ).innerHTML || "Single/NotAsTheme";
 
     try {
-        document.querySelector("a.CurrentDriveName.NoUnderline")
-            .querySelector("span#DriveName")
-            .innerHTML = MultiDisk.DiskNow
+        document.querySelector("span#DriveName").innerHTML = MultiDisk.DiskNow
     } catch (e) {
-        console.info("DiskNow can't set, looks like it is Single. \r\n\r\nTraceback:\r\n"+e)
+        console.info("DiskNow can't set, seems like it is Single. \r\n\r\nTraceback:\r\n"+e)
     }
 
     for (let i=0; i<DiskElements.length; i++) {
@@ -32,25 +30,16 @@ MultiDisk.Init = function () {
 } 
 MultiDisk.Expand = function () {
     let MultiDiskElement = document.getElementsByClassName("MultiDiskContainer")[0];
-    let Expanders = [];
-    Expanders[0] = document.querySelector("a.CurrentDriveName.NoUnderline");
-    Expanders[1] = document.querySelector("span.MultiDiskExpander");
-    if (MultiDiskElement.classList.contains("hidden")) {
-        MultiDiskElement.classList.remove("hidden")
-        try {
-            Expanders[0].classList.add("TurnOn")
-            Expanders[1].classList.add("TurnOn")
-        } catch (err) {
-            console.warn(err)
-        }
-    } else {
-        MultiDiskElement.classList.add("hidden")
-        try {
-            Expanders[0].classList.remove("TurnOn")
-            Expanders[1].classList.remove("TurnOn")
-        } catch (err) {
-            console.warn(err)
-        }
+    let Expanders = document.querySelectorAll("span.ExpandIcon");
+
+    let ControllerHiddenStatus = MultiDiskElement.classList.contains("hidden");
+
+    ControllerHiddenStatus
+        ? MultiDiskElement.classList.remove("hidden") 
+        : MultiDiskElement.classList.add("hidden");
+
+    for (let i = 0; i<Expanders.length; i++) {
+        Expanders[i].setAttribute("data-is-controller-hidden", ControllerHiddenStatus.toString())
     }
 }
 
